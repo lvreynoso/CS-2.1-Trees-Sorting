@@ -15,7 +15,7 @@ def is_sorted(items):
     return True
 
 
-def bubble_sort(items):
+def bubble_sort(items, key=lambda x: x):
     """Sort given items by swapping adjacent items that are out of order, and
     repeating until all items are in sorted order.
     Running time: O(n^2) roughly
@@ -24,12 +24,12 @@ def bubble_sort(items):
     while not is_sorted(items):
         for index, item in enumerate(items):
             # Swap adjacent items that are out of order
-            if index < len(items) - 1 and item > items[index + 1]:
+            if index < len(items) - 1 and key(item) > key(items[index + 1]):
                 items[index], items[index + 1] = items[index + 1], items[index]
     return items
 
 
-def selection_sort(items):
+def selection_sort(items, key=lambda x: x):
     """Sort given items by finding minimum item, swapping it with first
     unsorted item, and repeating until all items are in sorted order.
     Running time: O(n^2) cause we make n comparisons n times?
@@ -38,7 +38,7 @@ def selection_sort(items):
         min_index, min_value = None, None
         # Find minimum item in unsorted items
         for index in range(unsorted_index, len(items)):
-            if min_value is None or items[index] < min_value:
+            if min_value is None or key(items[index]) < key(min_value):
                 min_index, min_value = index, items[index]
         # Swap it with first unsorted item
         items[unsorted_index], items[min_index] = min_value, items[unsorted_index]
@@ -46,7 +46,7 @@ def selection_sort(items):
 
 
 
-def insertion_sort(items):
+def insertion_sort(items, key=lambda x: x):
     """Sort given items by taking first unsorted item, inserting it in sorted
     order in front of items, and repeating until all items are in order.
     Running time: Wiki says it's O(n^2) ;)
@@ -56,7 +56,7 @@ def insertion_sort(items):
         unsorted = items[unsorted_index]
         # Find the location it belongs in the sorted items
         target_index = unsorted_index
-        while unsorted < items[target_index-1] and target_index > 0:
+        while key(unsorted) < key(items[target_index-1]) and target_index > 0:
             target_index -= 1
         # insert the unsorted item and shift the other sorted
         # items down without adjusting the list
