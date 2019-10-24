@@ -6,16 +6,13 @@ def is_sorted(items):
     Running time: O(n), always
     Memory usage: O(1) since it's a constant size no matter the input"""
     # Check that all adjacent items are in order, return early if so
-    prev = items[0] if len(items) > 0 else None
     for index in range(1, len(items)):
-        num = items[index]
-        if num < prev:
+        if items[index] < items[index-1]:
             return False
-        prev = num
     return True
 
 
-def bubble_sort(items, key=lambda x: x):
+def bubble_sort(items, key=lambda x: x, order="ascending"):
     """Sort given items by swapping adjacent items that are out of order, and
     repeating until all items are in sorted order.
     Running time: O(n^2) roughly
@@ -26,10 +23,12 @@ def bubble_sort(items, key=lambda x: x):
             # Swap adjacent items that are out of order
             if index < len(items) - 1 and key(item) > key(items[index + 1]):
                 items[index], items[index + 1] = items[index + 1], items[index]
+    if order == "descending":
+        items.reverse()
     return items
 
 
-def selection_sort(items, key=lambda x: x):
+def selection_sort(items, key=lambda x: x, order="ascending"):
     """Sort given items by finding minimum item, swapping it with first
     unsorted item, and repeating until all items are in sorted order.
     Running time: O(n^2) cause we make n comparisons n times?
@@ -42,11 +41,13 @@ def selection_sort(items, key=lambda x: x):
                 min_index, min_value = index, items[index]
         # Swap it with first unsorted item
         items[unsorted_index], items[min_index] = min_value, items[unsorted_index]
+    if order == "descending":
+        items.reverse()
     return items
 
 
 
-def insertion_sort(items, key=lambda x: x):
+def insertion_sort(items, key=lambda x: x, order="ascending"):
     """Sort given items by taking first unsorted item, inserting it in sorted
     order in front of items, and repeating until all items are in order.
     Running time: Wiki says it's O(n^2) ;)
@@ -63,4 +64,6 @@ def insertion_sort(items, key=lambda x: x):
         held_item = unsorted
         for replace_index in range(target_index, unsorted_index + 1):
             items[replace_index], held_item = held_item, items[replace_index] 
+    if order == "descending":
+        items.reverse()
     return items
