@@ -58,13 +58,13 @@ def insertion_sort(items):
     for unsorted_index in range(1, len(items)):
         # Take first unsorted item
         unsorted = items[unsorted_index]
-        # "Insert" it in sorted order in front of items
-        for sorted_index in range(unsorted_index):
-            if unsorted < items[sorted_index]:
-                # insert the unsorted item and shift the other sorted
-                # items down without adjusting the list
-                held_item = unsorted
-                for replace_index in range(sorted_index, unsorted_index + 1):
-                    items[replace_index], held_item = held_item, items[replace_index]
-                break   
+        # Find the location it belongs in the sorted items
+        target = unsorted_index
+        while unsorted < items[target-1] and target > 0:
+            target -= 1
+        # insert the unsorted item and shift the other sorted
+        # items down without adjusting the list
+        held_item = unsorted
+        for replace_index in range(target, unsorted_index + 1):
+            items[replace_index], held_item = held_item, items[replace_index] 
     return items
