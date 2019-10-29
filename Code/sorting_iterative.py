@@ -31,7 +31,7 @@ def bubble_sort(items, key=lambda x: x, order="ascending"):
 def selection_sort(items, key=lambda x: x, order="ascending"):
     """Sort given items by finding minimum item, swapping it with first
     unsorted item, and repeating until all items are in sorted order.
-    Running time: O(n^2) cause we make n comparisons n times?
+    Running time: O(n^2)??
     Memory usage: O(1) since we're just swapping stuff around"""
     for unsorted_index in range(len(items)):
         min_index, min_value = None, None
@@ -61,9 +61,10 @@ def insertion_sort(items, key=lambda x: x, order="ascending"):
             target_index -= 1
         # insert the unsorted item and shift the other sorted
         # items down without adjusting the list
-        held_item = unsorted
-        for replace_index in range(target_index, unsorted_index + 1):
-            items[replace_index], held_item = held_item, items[replace_index] 
+        if target_index != unsorted_index:
+            held_item = unsorted
+            for replace_index in range(target_index, unsorted_index + 1):
+                items[replace_index], held_item = held_item, items[replace_index] 
     if order == "descending":
         items.reverse()
     return items

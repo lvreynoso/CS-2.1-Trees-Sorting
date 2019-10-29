@@ -6,9 +6,20 @@ def merge(items1, items2):
     and return a new list containing all items in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until one list is empty
-    # TODO: Find minimum item in both lists and append it to new list
-    # TODO: Append remaining items in non-empty list to new list
+    merged = []
+    queued = [None, None]
+    items = (items1, items2)
+    # Repeat until one list is empty
+    while len(items1) > 0 and len(items2) > 0:
+        # Find minimum item in both lists and append it to new list
+        queued = list(map(lambda x: items[x[0]].pop(0) if x[1] is None else x[1], enumerate(queued)))
+        min_index = 0 if queued[0] <= queued[1] else 1
+        merged.append(queued[min_index])
+        queued[min_index] = None
+    # Append remaining items in non-empty list to new list
+    for leftover in filter(lambda x: len(x) > 0, [queued, items1, items2]):
+        merged.extend([x for x in leftover if x is not None])
+    return merged
 
 
 def split_sort_merge(items):
@@ -57,3 +68,8 @@ def quick_sort(items, low=None, high=None):
     # TODO: Check if list or range is so small it's already sorted (base case)
     # TODO: Partition items in-place around a pivot and get index of pivot
     # TODO: Sort each sublist range by recursively calling quick sort
+
+if __name__ == '__main__':
+    first, second = [0, 1, 3, 5, 7, 9, 11], [0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+    combined = merge(first, second)
+    print(combined)
