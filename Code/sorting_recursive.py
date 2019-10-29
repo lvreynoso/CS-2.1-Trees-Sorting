@@ -37,7 +37,8 @@ def split_sort_merge(items):
     # TODO: Merge sorted halves into one list in sorted order
     split = len(items) // 2
     sorted1, sorted2 = insertion_sort(items[:split]), insertion_sort(items[split:])
-    return merge(sorted1, sorted2)
+    items = merge(sorted1, sorted2)
+    return items
 
 
 def merge_sort(items):
@@ -54,7 +55,8 @@ def merge_sort(items):
         return items
     split = len(items) // 2
     sorted1, sorted2 = merge_sort(items[:split]), merge_sort(items[split:])
-    return merge(sorted1, sorted2)
+    items = merge(sorted1, sorted2)
+    return items
 
 
 def partition(items, low, high):
@@ -87,7 +89,8 @@ if __name__ == '__main__':
     combined = merge(first, second)
     print(f'function(merge): {combined}')
     jumbled = [17, 73, 14, 10, 36, 75, 25, 39, 55, 4, 35, 54, 22, 7, 54, 13, 17, 84, 41, 91]
-    unjumbled = split_sort_merge(jumbled)
-    print(f'function(split_sort_merge): {unjumbled}')
-    merge_sorted = merge_sort(jumbled)
-    print(f'function(merge_sort): {merge_sorted}')
+    unjumbled = merge_sort(jumbled)
+    print(f'function(merge_sort): {unjumbled}')
+    dwarves = 'Doc Grumpy Happy Sleepy Bashful Sneezy Dopey'.split()
+    undwarves = merge_sort(dwarves)
+    print(f'function(merge_sort): {undwarves}')
