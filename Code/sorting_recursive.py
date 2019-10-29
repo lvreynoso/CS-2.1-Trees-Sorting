@@ -21,8 +21,7 @@ def merge(items1, items2):
             # Append remaining items in non-empty list to new list
             leftover_index = int(not min_index)
             merged.append(queued[leftover_index])
-            for item in iterators[leftover_index]:
-                merged.append(item)
+            merged.extend(list(iterators[leftover_index]))
             break
     return merged
 
