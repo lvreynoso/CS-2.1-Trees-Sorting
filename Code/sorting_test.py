@@ -222,14 +222,4 @@ if __name__ == '__main__':
     # Get sort function from command-line argument
     # FIXME: This is causing unittest to throw an error
     # sort = get_sort_function()
-    # unittest.main()
-    jumbled = [17, 73, 14, 10, 36, 75, 25, 39, 55, 4, 35, 54, 22, 7, 54, 13, 17, 84, 41, 91]
-    unjumbled = split_sort_merge(jumbled)
-    print(f'function(split_sort_merge): {unjumbled}')
-    merge_sorted = merge_sort(jumbled)
-    print(f'function(merge_sort): {merge_sorted}')
-    dwarves = 'Doc Grumpy Happy Sleepy Bashful Sneezy Dopey'.split()
-    s_dwarves = merge_sort(dwarves)
-    print(f'function(merge_sort): {s_dwarves}')
-    sort(dwarves)
-    print(dwarves)
+    unittest.main()

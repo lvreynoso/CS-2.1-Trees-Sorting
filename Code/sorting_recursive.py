@@ -13,13 +13,13 @@ def merge(items1, items2):
     # Repeat until one list is empty
     while True:
         # Find minimum item in both lists and append it to new list
-        min_index = 0 if queued[0] <= queued[1] else 1
+        min_index = int(queued[1] <= queued[0])
         merged.append(queued[min_index])
         try:
             queued[min_index] = next(iterators[min_index])
         except StopIteration:
             # Append remaining items in non-empty list to new list
-            leftover_index = 0 if min_index == 1 else 1
+            leftover_index = int(not min_index)
             merged.append(queued[leftover_index])
             for item in iterators[leftover_index]:
                 merged.append(item)
