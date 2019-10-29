@@ -32,20 +32,21 @@ def split_sort_merge(items):
     a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half using any other sorting algorithm
-    # TODO: Merge sorted halves into one list in sorted order
+    # Split items list into approximately equal halves
     split = len(items) // 2
+    # Sort each half using any other sorting algorithm
     sorted1, sorted2 = insertion_sort(items[:split]), insertion_sort(items[split:])
-    items = merge(sorted1, sorted2)
+    # Merge sorted halves into one list in sorted order
+    for index, item in enumerate(merge(sorted1, sorted2)):
+        items[index] = item
     return items
 
 
 def merge_sort(items):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each recursively, and merging results into a list in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    Memory usage: O(n^2)"""
+    Running time: O(n log n) since we're constantly splitting things into 2 parts
+    Memory usage: O(n^2) since we're doing a lot of duplication of items"""
     # Check if list is so small it's already sorted (base case)
     if len(items) < 2:
         return items
@@ -54,9 +55,8 @@ def merge_sort(items):
     # Sort each half by recursively calling merge sort
     sorted1, sorted2 = merge_sort(items[:split]), merge_sort(items[split:])
     # Merge sorted halves into one list in sorted order
-    merged = merge(sorted1, sorted2)
-    for index in range(len(items)):
-        items[index] = merged[index]
+    for index, item in enumerate(merge(sorted1, sorted2)):
+        items[index] = item
     return items
 
 
