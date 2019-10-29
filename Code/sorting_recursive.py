@@ -5,23 +5,26 @@ from sorting_iterative import insertion_sort
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
-    TODO: Running time: O(n + m)
-    TODO: Memory usage: O(n + m)"""
+    Running time: O(n + m)
+    Memory usage: O(n + m)"""
     merged = []
-    queued = [None, None]
-    items = (items1, items2)
+    iterators = (iter(items1), iter(items2))
+    queued = [next(iterators[0]), next(iterators[1])]
     # Repeat until one list is empty
-    while (len(items1) > 0 or queued[0] is not None) and (len(items2) > 0 or queued[1] is not None):
+    while True:
         # Find minimum item in both lists and append it to new list
-        queued = list(map(lambda x: items[x[0]].pop(0) if x[1] is None else x[1], enumerate(queued)))
         min_index = 0 if queued[0] <= queued[1] else 1
         merged.append(queued[min_index])
-        queued[min_index] = None
-    # Append remaining items in non-empty list to new list
-    for leftover in filter(lambda x: len(x) > 0, [queued, items1, items2]):
-        merged.extend([x for x in leftover if x is not None])
+        try:
+            queued[min_index] = next(iterators[min_index])
+        except StopIteration:
+            # Append remaining items in non-empty list to new list
+            leftover_index = 0 if min_index == 1 else 1
+            merged.append(queued[leftover_index])
+            for item in iterators[leftover_index]:
+                merged.append(item)
+            break
     return merged
-
 
 def split_sort_merge(items):
     """Sort given items by splitting list into two approximately equal halves,
