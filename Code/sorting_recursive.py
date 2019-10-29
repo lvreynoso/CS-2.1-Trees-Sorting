@@ -1,16 +1,17 @@
 #!python
 
+from sorting_iterative import insertion_sort
 
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    TODO: Running time: O(n + m)
+    TODO: Memory usage: O(n + m)"""
     merged = []
     queued = [None, None]
     items = (items1, items2)
     # Repeat until one list is empty
-    while len(items1) > 0 and len(items2) > 0:
+    while (len(items1) > 0 or queued[0] is not None) and (len(items2) > 0 or queued[1] is not None):
         # Find minimum item in both lists and append it to new list
         queued = list(map(lambda x: items[x[0]].pop(0) if x[1] is None else x[1], enumerate(queued)))
         min_index = 0 if queued[0] <= queued[1] else 1
@@ -31,6 +32,9 @@ def split_sort_merge(items):
     # TODO: Split items list into approximately equal halves
     # TODO: Sort each half using any other sorting algorithm
     # TODO: Merge sorted halves into one list in sorted order
+    split = len(items) // 2
+    sorted1, sorted2 = insertion_sort(items[:split]), insertion_sort(items[split:])
+    return merge(sorted1, sorted2)
 
 
 def merge_sort(items):
@@ -42,6 +46,12 @@ def merge_sort(items):
     # TODO: Split items list into approximately equal halves
     # TODO: Sort each half by recursively calling merge sort
     # TODO: Merge sorted halves into one list in sorted order
+    # print(items)
+    if len(items) < 2:
+        return items
+    split = len(items) // 2
+    sorted1, sorted2 = merge_sort(items[:split]), merge_sort(items[split:])
+    return merge(sorted1, sorted2)
 
 
 def partition(items, low, high):
@@ -72,4 +82,9 @@ def quick_sort(items, low=None, high=None):
 if __name__ == '__main__':
     first, second = [0, 1, 3, 5, 7, 9, 11], [0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
     combined = merge(first, second)
-    print(combined)
+    print(f'function(merge): {combined}')
+    jumbled = [17, 73, 14, 10, 36, 75, 25, 39, 55, 4, 35, 54, 22, 7, 54, 13, 17, 84, 41, 91]
+    unjumbled = split_sort_merge(jumbled)
+    print(f'function(split_sort_merge): {unjumbled}')
+    merge_sorted = merge_sort(jumbled)
+    print(f'function(merge_sort): {merge_sorted}')
