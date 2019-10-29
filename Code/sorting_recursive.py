@@ -45,17 +45,18 @@ def merge_sort(items):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each recursively, and merging results into a list in sorted order.
     TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Check if list is so small it's already sorted (base case)
-    # TODO: Split items list into approximately equal halves
-    # TODO: Sort each half by recursively calling merge sort
-    # TODO: Merge sorted halves into one list in sorted order
-    # print(items)
+    Memory usage: O(n^2)"""
+    # Check if list is so small it's already sorted (base case)
     if len(items) < 2:
         return items
+    # Split items list into approximately equal halves
     split = len(items) // 2
+    # Sort each half by recursively calling merge sort
     sorted1, sorted2 = merge_sort(items[:split]), merge_sort(items[split:])
-    items = merge(sorted1, sorted2)
+    # Merge sorted halves into one list in sorted order
+    merged = merge(sorted1, sorted2)
+    for index in range(len(items)):
+        items[index] = merged[index]
     return items
 
 
@@ -94,3 +95,4 @@ if __name__ == '__main__':
     dwarves = 'Doc Grumpy Happy Sleepy Bashful Sneezy Dopey'.split()
     undwarves = merge_sort(dwarves)
     print(f'function(merge_sort): {undwarves}')
+    print(dwarves)

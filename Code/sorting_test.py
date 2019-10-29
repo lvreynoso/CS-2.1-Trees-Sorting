@@ -231,4 +231,5 @@ if __name__ == '__main__':
     dwarves = 'Doc Grumpy Happy Sleepy Bashful Sneezy Dopey'.split()
     s_dwarves = merge_sort(dwarves)
     print(f'function(merge_sort): {s_dwarves}')
+    sort(dwarves)
     print(dwarves)
