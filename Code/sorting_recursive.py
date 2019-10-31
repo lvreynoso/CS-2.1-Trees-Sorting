@@ -1,6 +1,7 @@
 #!python
 
 from sorting_iterative import insertion_sort
+import random
 
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
@@ -70,6 +71,23 @@ def partition(items, low, high):
     # TODO: Move items less than pivot into front of range [low...p-1]
     # TODO: Move items greater than pivot into back of range [p+1...high]
     # TODO: Move pivot item into final position [p] and return index p
+    pivot_index = random.randint(low, high)
+    pivot = items[pivot_index]
+    lows, highs = [], []
+    for index in range(low, high + 1):
+        if index == pivot_index:
+            continue
+        item = items[index]
+        if item <= pivot:
+            lows.append(item)
+        else:
+            highs.append(item)
+    pivot_index = low + len(lows)
+    items[low:pivot_index] = lows if len(lows) > 0 else items[low:pivot_index]
+    items[pivot_index] = pivot
+    items[pivot_index + 1:high + 1] = highs if len(highs) > 0 else items[pivot_index + 1:high + 1]
+    return pivot_index
+
 
 
 def quick_sort(items, low=None, high=None):
@@ -82,15 +100,26 @@ def quick_sort(items, low=None, high=None):
     # TODO: Check if list or range is so small it's already sorted (base case)
     # TODO: Partition items in-place around a pivot and get index of pivot
     # TODO: Sort each sublist range by recursively calling quick sort
+    low = 0 if low is None else low
+    high = len(items) - 1 if high is None else high
+    if low >= high:
+        return items
+    pivot_index = partition(items, low, high)
+    quick_sort(items, low, pivot_index - 1)
+    quick_sort(items, pivot_index + 1, high)
+    return items
+
 
 if __name__ == '__main__':
-    first, second = [0, 1, 3, 5, 7, 9, 11], [0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-    combined = merge(first, second)
-    print(f'function(merge): {combined}')
+    # first, second = [0, 1, 3, 5, 7, 9, 11], [0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+    # combined = merge(first, second)
+    # print(f'function(merge): {combined}')
     jumbled = [17, 73, 14, 10, 36, 75, 25, 39, 55, 4, 35, 54, 22, 7, 54, 13, 17, 84, 41, 91]
-    unjumbled = merge_sort(jumbled)
-    print(f'function(merge_sort): {unjumbled}')
-    dwarves = 'Doc Grumpy Happy Sleepy Bashful Sneezy Dopey'.split()
-    undwarves = merge_sort(dwarves)
-    print(f'function(merge_sort): {undwarves}')
-    print(dwarves)
+    # unjumbled = merge_sort(jumbled)
+    # print(f'function(merge_sort): {unjumbled}')
+    # dwarves = 'Doc Grumpy Happy Sleepy Bashful Sneezy Dopey'.split()
+    # undwarves = merge_sort(dwarves)
+    # print(f'function(merge_sort): {undwarves}')
+    # print(dwarves)
+    quick_sort(jumbled)
+    print(jumbled)
