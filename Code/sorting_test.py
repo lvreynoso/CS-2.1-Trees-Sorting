@@ -2,7 +2,7 @@
 
 from sorting import random_ints
 from sorting_iterative import is_sorted, bubble_sort, selection_sort, insertion_sort
-from sorting_recursive import split_sort_merge, merge_sort, quick_sort
+from sorting_recursive import split_sort_merge, merge_sort, quick_sort, merge
 from sorting_integer import counting_sort, bucket_sort
 import unittest
 
@@ -184,6 +184,20 @@ class StringSortTest(unittest.TestCase):
         sort(items)  # Mutate
         assert items == sorted_items
 
+class MergeSortTest(unittest.TestCase):
+
+    def test_merge(self):
+        first, second = [0, 1, 3, 5, 7, 9, 11], [0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        combined = merge(first, second)
+        assert combined == [0, 0, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20]
+        third, fourth = ['Absol', 'Charizard', 'Mew', 'Misdreavous'], ['Absol', 'Gyrados', 'Milotic', 'Pikachu']
+        combined2 = merge(third, fourth)
+        assert combined2 == ['Absol', 'Absol', 'Charizard', 'Gyrados', 'Mew', 'Milotic', 'Misdreavous', 'Pikachu']
+
+    def test_merge_sort(self):
+        items1 = ['Absol', 'Gyrados', 'Milotic', 'Pikachu', 'Charizard', 'Mew', 'Misdreavous', 'Absol']
+        merge_sort(items1)
+        assert items1 == ['Absol', 'Absol', 'Charizard', 'Gyrados', 'Mew', 'Milotic', 'Misdreavous', 'Pikachu']
 
 def get_sort_function():
     """Read command-line argument and return sort function with that name."""
