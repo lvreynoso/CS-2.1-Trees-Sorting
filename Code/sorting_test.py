@@ -96,9 +96,9 @@ class IntegerSortTest(unittest.TestCase):
         items3 = [5, 7, 3]
         sort(items3)
         assert items3 == [3, 5, 7]
-        # TODO: Write more test cases with assert equal list statements
-        # You'll need a lot more than this to test sorting algorithm robustness
-        # ...
+        items4 = [-11, -55, 26, 3, 0, 99, 44, -20]
+        sort(items4)
+        assert items4 == [-55, -20, -11, 0, 3, 26, 44, 99]
 
     def test_sort_on_small_lists_of_integers_with_duplicates(self):
         items1 = [3, 3]
@@ -113,10 +113,9 @@ class IntegerSortTest(unittest.TestCase):
         items4 = [7, 5, 3, 7, 5, 7, 5, 3, 7]
         sort(items4)
         assert items4 == [3, 3, 5, 5, 5, 7, 7, 7, 7]
-        # TODO: Create lists of integers with many duplicate values
-        # TODO: Write more test cases with assert equal list statements
-        # You'll need a lot more than this to test sorting algorithm robustness
-        # ...
+        items5 = [0, 0, 0, 0, 0, 0, 0, -1]
+        sort(items5)
+        assert items5 == [-1, 0, 0, 0, 0, 0, 0, 0]
 
     def test_sort_on_lists_of_random_integers(self):
         # Generate list of 10 random integers from range [1...20]
@@ -169,9 +168,9 @@ class StringSortTest(unittest.TestCase):
         items3 = ['B', 'C', 'A']
         sort(items3)
         assert items3 == ['A', 'B', 'C']
-        # TODO: Write more test cases with assert equal list statements
-        # You'll need a lot more than this to test sorting algorithm robustness
-        # ...
+        items4 = ['Absol', 'Gyrados', 'Milotic', 'Pikachu', 'Charizard', 'Mew', 'Misdreavous', 'Absol']
+        sort(items4)
+        assert items4 == ['Absol', 'Absol', 'Charizard', 'Gyrados', 'Mew', 'Milotic', 'Misdreavous', 'Pikachu']
 
     def test_sort_on_fish_book_title(self):
         items = 'one fish two fish red fish blue fish'.split()
