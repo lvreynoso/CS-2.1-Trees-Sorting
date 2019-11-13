@@ -93,6 +93,7 @@ class PrefixTreeTest(unittest.TestCase):
         assert node_B.character == 'B'
         assert node_B.is_terminal() is False
         assert node_B.num_children() == 2  # Node 'B' now has two children
+        print(node_B.children)
         assert node_B.has_child('C') is True  # Node 'C' is still its child
         assert node_B.has_child('D') is True  # Node 'D' is its new child
         # Verify new node 'D'

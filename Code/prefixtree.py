@@ -35,15 +35,29 @@ class PrefixTree:
 
     def is_empty(self):
         """Return True if this prefix tree is empty (contains no strings)."""
-        # TODO
+        return self.size == 0
 
     def contains(self, string):
         """Return True if this prefix tree contains the given string."""
-        # TODO
+        node, depth = self._find_node(string)
+        return node.terminal == True if node is not None else False
 
     def insert(self, string):
         """Insert the given string into this prefix tree."""
-        # TODO
+        node, depth = self._find_node(string)
+        if node is not None and node.terminal is True:
+            return
+        if depth == len(string):
+            node.terminal = True
+            self.size += 1
+            return
+        terminus, _ = self._find_node(string[:depth])
+        for index in range(depth, len(string)):
+            leaf = PrefixTreeNode(string[index])
+            terminus.add_child(string[index], leaf)
+            terminus = leaf
+        terminus.terminal = True
+        self.size += 1
 
     def _find_node(self, string):
         """Return a tuple containing the node that terminates the given string
@@ -55,25 +69,49 @@ class PrefixTree:
             return self.root, 0
         # Start with the root node
         node = self.root
-        # TODO
+        depth = 0
+        for char in string:
+            try:
+                node = node.get_child(char)
+            except ValueError:
+                node = None
+                break
+            depth += 1
+        return node, depth
 
     def complete(self, prefix):
         """Return a list of all strings stored in this prefix tree that start
         with the given prefix string."""
         # Create a list of completions in prefix tree
         completions = []
-        # TODO
+        raws = []
+        self._traverse(self.root, prefix, lambda x: raws.append((x.character, x.num_children(), x.is_terminal())))
+        stack = []
+        for data in raws:
+            char, children, terminus = data
+            prefix = stack.pop() if len(stack) > 0 else ''
+            prefix = ''.join([prefix, char])
+            if terminus is True:
+                completions.append(prefix)
+            if children > 0:
+                stack.extend([prefix] * children)
+        return completions
 
     def strings(self):
         """Return a list of all strings stored in this prefix tree."""
         # Create a list of all strings in prefix tree
-        all_strings = []
-        # TODO
+        return self.complete('')
 
     def _traverse(self, node, prefix, visit):
         """Traverse this prefix tree with recursive depth-first traversal.
         Start at the given node and visit each node with the given function."""
-        # TODO
+        for child in node.children:
+            if prefix.startswith(child.character) or prefix == '':
+                visit(child)
+                subprefix = prefix[1:]
+                self._traverse(child, subprefix, visit)
+            
+
 
 
 def create_prefix_tree(strings):
