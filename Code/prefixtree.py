@@ -105,10 +105,10 @@ class PrefixTree:
     def _traverse(self, node, prefix, visit):
         """Traverse this prefix tree with recursive depth-first traversal.
         Start at the given node and visit each node with the given function."""
+        subprefix = prefix[1:]
         for child in node.children:
             if prefix.startswith(child.character) or prefix == '':
                 visit(child)
-                subprefix = prefix[1:]
                 self._traverse(child, subprefix, visit)
             
 
