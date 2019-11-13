@@ -89,12 +89,12 @@ class PrefixTree:
         stack = []
         for data in raws:
             char, children, terminus = data
-            prefix = stack.pop() if len(stack) > 0 else ''
-            prefix = ''.join([prefix, char])
-            if terminus is True:
-                completions.append(prefix)
+            seed = stack.pop() if len(stack) > 0 else ''
+            seed = ''.join([seed, char])
+            if terminus is True and seed.startswith(prefix):
+                completions.append(seed)
             if children > 0:
-                stack.extend([prefix] * children)
+                stack.extend([seed] * children)
         return completions
 
     def strings(self):
