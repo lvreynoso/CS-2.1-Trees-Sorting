@@ -159,9 +159,9 @@ if __name__ == '__main__':
     # Create a dictionary of tongue-twisters with similar words to test with
     tongue_twisters = {
         'Seashells': 'Shelly sells seashells by the sea shore'.split(),
-        # 'Peppers': 'Peter Piper picked a peck of pickled peppers'.split(),
-        # 'Woodchuck': ('How much wood would a wood chuck chuck'
-        #                ' if a wood chuck could chuck wood').split()
+        'Peppers': 'Peter Piper picked a peck of pickled peppers'.split(),
+        'Woodchuck': ('How much wood would a wood chuck chuck'
+                       ' if a wood chuck could chuck wood').split()
     }
     # Create a prefix tree with the similar words in each tongue-twister
     for name, strings in tongue_twisters.items():
