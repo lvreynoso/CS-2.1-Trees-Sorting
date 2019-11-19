@@ -32,6 +32,8 @@ def split_sort_merge(items):
     a list in sorted order.
     Running time: O(n^2)
     Memory usage: O(n)"""
+    if len(items) < 2:
+        return items
     # Split items list into approximately equal halves
     split = len(items) // 2
     # Sort each half using any other sorting algorithm
