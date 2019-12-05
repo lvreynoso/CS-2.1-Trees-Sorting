@@ -19,6 +19,11 @@ class BinaryMinHeap(object):
         """Return a string representation of this heap."""
         return 'BinaryMinHeap({})'.format(self.items)
 
+    def __iter__(self):
+        """YOLO this whole thing out of here"""
+        while len(self.items) > 0:
+            yield self.delete_min()
+
     def is_empty(self):
         """Return True if this heap is empty, or False otherwise."""
         return len(self.items) == 0

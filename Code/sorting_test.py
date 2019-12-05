@@ -4,6 +4,7 @@ from sorting import random_ints
 from sorting_iterative import is_sorted, bubble_sort, selection_sort, insertion_sort
 from sorting_recursive import split_sort_merge, merge_sort, quick_sort, merge
 from sorting_integer import counting_sort, bucket_sort
+from sorting_heap import heap_sort
 import unittest
 
 
@@ -34,7 +35,8 @@ class IsSortedTest(unittest.TestCase):
         assert is_sorted(['A', 'B']) is True
         assert is_sorted(['A', 'B', 'C']) is True
         strtest = [str(i) for i in range(1000)]
-        assert is_sorted(strtest) is True
+        sorted_strtest = sorted(strtest)
+        assert is_sorted(sorted_strtest) is True
 
     def test_is_sorted_on_unsorted_strings(self):
         # Negative test cases (counterexamples) with lists of unsorted strings
@@ -225,7 +227,7 @@ def get_sort_function():
 
 
 # If using PyTest, change this variable to the sort function you want to test
-sort = split_sort_merge
+sort = heap_sort
 
 
 if __name__ == '__main__':
