@@ -8,7 +8,6 @@ def is_sorted(items):
     # Check that all adjacent items are in order, return early if so
     for index in range(1, len(items)):
         if items[index] < items[index-1]:
-            print(f'Oopsie! Found a sequence of {items[index-1]}, {items[index]}')
             return False
     return True
 
