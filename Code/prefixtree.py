@@ -39,11 +39,13 @@ class PrefixTree:
 
     def contains(self, string):
         """Return True if this prefix tree contains the given string."""
+        # Runs in O(log n) time since it's a tree
         node, depth = self._find_node(string)
         return node.terminal == True if node is not None else False
 
     def insert(self, string):
         """Insert the given string into this prefix tree."""
+        # Runs in roughly O(log n) time
         node, depth = self._find_node(string)
         if node is not None and node.terminal is True:
             return
@@ -65,6 +67,7 @@ class PrefixTree:
         completely found, return None and the depth of the last matching node.
         Search is done iteratively with a loop starting from the root node."""
         # Match the empty string
+        # Runs in O(log n) time
         if len(string) == 0:
             return self.root, 0
         # Start with the root node
@@ -83,6 +86,7 @@ class PrefixTree:
         """Return a list of all strings stored in this prefix tree that start
         with the given prefix string."""
         # Create a list of completions in prefix tree
+        # Runs in roughly O(log n)
         completions = []
         raws = []
         self._traverse(self.root, prefix, lambda x: raws.append((x.character, x.num_children(), x.is_terminal())))

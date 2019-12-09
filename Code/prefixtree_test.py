@@ -246,6 +246,23 @@ class PrefixTreeTest(unittest.TestCase):
             assert len(tree_strings) == len(input_strings)  # Check length only
             self.assertCountEqual(tree_strings, input_strings)  # Ignore order
 
+    # additional test
+    def test_tedium(self):
+        """Test how tedious testing can be"""
+        tree = PrefixTree()
+        input_strings = ['Anisha Bayti', 'Anisha Bobeesha', 'Anisha Jain', 'Mushu the Cat', 'Mushu the Dragon']
+        for ordinal, string in enumerate(input_strings):
+            tree.insert(string)
+            tree_strings = tree.strings()
+            assert len(tree_strings) == ordinal + 1
+        assert tree.complete('A') == input_strings[:3]
+        assert tree.complete('Anisha') == input_strings[:3]
+        assert tree.complete('Anisha J') == [input_strings[2]]
+        assert tree.complete('M') == input_strings[3:]
+        assert tree.complete('Mushu') == input_strings[3:]
+        assert tree.complete('Mushu the D') == [input_strings[4]]
+        assert tree.complete('Adriana') == []
+
 
 if __name__ == '__main__':
     unittest.main()
