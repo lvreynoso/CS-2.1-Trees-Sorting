@@ -54,6 +54,7 @@ class PrefixTreeNode:
         """Add the given character and child node as a child of this node, or
         raise ValueError if given character is amongst this node's children."""
         # Runs in O(n) where n is the number of child nodes?
+        # Inserts children into a list in sorted order
         if not self.has_child(character):
             if len(self.children) == 0:
                 self.children = (child_node,)
