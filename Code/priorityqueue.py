@@ -37,7 +37,7 @@ class PriorityQueue(object):
         if self.length() == 0:
             return None
         # Return minimum item from heap
-        return self.heap.get_min()[0]
+        return self.heap.get_min()[1]
 
     def dequeue(self):
         """Remove and return the item at the front of this priority queue,
@@ -45,7 +45,7 @@ class PriorityQueue(object):
         if self.length() == 0:
             raise ValueError('Priority queue is empty and has no front item')
         # Remove and return minimum item from heap
-        return self.heap.delete_min()[0]
+        return self.heap.delete_min()[1]
 
     def push_pop(self, item, priority):
         """Remove and return the item at the front of this priority queue,
@@ -54,7 +54,7 @@ class PriorityQueue(object):
         if self.length() == 0:
             raise ValueError('Priority queue is empty and has no front item')
         # Replace and return minimum item from heap
-        return self.heap.replace_min((priority, item))[0]
+        return self.heap.replace_min((priority, item))[1]
 
 
 def test_priority_queue():
@@ -63,8 +63,9 @@ def test_priority_queue():
     min_unicode = ord('¡')
     max_unicode = ord('ʯ')
     jumbled = [random.randint(min_unicode, max_unicode) for _ in range(50)]
-    tests = map(lambda x: (x, chr(x)), jumbled)
+    tests = map(lambda x: (chr(x), x), jumbled)
     for test in tests:
+        print(f'enqueing {test}')
         pq.enqueue(test[0], test[1])
 
     print(repr(pq))
